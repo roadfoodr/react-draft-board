@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {db} from "./firebase"
 import {collection, getDocs} from "firebase/firestore"
 
+import Team from './Components/Team.js';
+
 const currency = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(2); }
 const wholenum = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(0); }
 
@@ -10,9 +12,9 @@ let position_sort_costs = new Map();
   position_sort_costs.set(pos, i * 1000);
 });
 const player_sort_func = (p1, p2) => {
-  return p1.salary + position_sort_costs.get(p1.combined_position) >= 
-         p2.salary + position_sort_costs.get(p2.combined_position) ?
-  p1 : p2;
+  return (p1.salary + position_sort_costs.get(p1.combined_position)) >= 
+         (p2.salary + position_sort_costs.get(p2.combined_position)) ?
+  -1 : 1;
 }
 
 function Board() {
@@ -59,19 +61,20 @@ function Board() {
         <h1>
           Draft Board
         </h1>
-        <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
       </header>
 
 
       <h4>Salary cap: {currency(global.config.salary_cap)}</h4>
 
       {franchises.map(franchise =>
-        <p key={franchise.franchise}>{franchise.franchise}</p>
+        <div><Team 
+            franchise={franchise}
+            players={players.filter(player => player.franchise === franchise.franchise)
+              .sort(player_sort_func)}
+            key={franchise.franchise} /></div>
       )}
 
-      { console.log(players) }
+      { /* console.log(players) */ }
       { console.log(franchises) }
 
 
