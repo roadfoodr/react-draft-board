@@ -5,23 +5,38 @@ import {collection, getDocs} from "firebase/firestore"
 const currency = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(2); }
 const wholenum = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(0); }
 
+let position_sort_costs = new Map();
+["DB", "LB", "K", "WRTE", "RB", "QB"].forEach((pos, i) => {
+  position_sort_costs.set(pos, i * 1000);
+});
+const player_sort_func = (p1, p2) => {
+  return p1.salary + position_sort_costs.get(p1.combined_position) >= 
+         p2.salary + position_sort_costs.get(p2.combined_position) ?
+  p1 : p2;
+}
+
 function Board() {
 
   const [players, setPlayers] = useState([]); 
-  const [franchises, setFranchises] = useState([]); 
+  const [franchises, setFranchises] = useState([]);
+
+
 
   useEffect(() => {
-    let player_temp = [];
+    let players_temp = [];
     let franchise_set = new Set();
     getDocs(collection(db, "players")).then((snapshot) => {
     snapshot.forEach((doc) => {
-      player_temp.push(doc.data());
+      let player_temp = doc.data();
+      player_temp.name = player_temp.nameLast + ", " + player_temp.nameFirst;
+      players_temp.push(player_temp);
       franchise_set.add(doc.data().franchise);
     });
 
+    // Compute summaries for each franchise
     let franchise_temp = [...franchise_set].sort().map( franchise => ({"franchise": franchise}) );
     franchise_temp.forEach( franchise => {
-      let franchise_players = player_temp.filter( player => player.franchise === franchise.franchise)
+      let franchise_players = players_temp.filter( player => player.franchise === franchise.franchise)
       franchise.player_count = franchise_players.length;
       franchise.spent = currency(franchise_players.reduce((accumulator, object) => {
           return accumulator + object.salary; }, 0) );
@@ -31,7 +46,7 @@ function Board() {
           return accumulator + object.rating; }, 0) );
       });
 
-    setPlayers(player_temp);
+    setPlayers(players_temp);
     setFranchises(franchise_temp);
 
     })
@@ -51,6 +66,10 @@ function Board() {
 
 
       <h4>Salary cap: {currency(global.config.salary_cap)}</h4>
+
+      {franchises.map(franchise =>
+        <p key={franchise.franchise}>{franchise.franchise}</p>
+      )}
 
       { console.log(players) }
       { console.log(franchises) }
