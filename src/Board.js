@@ -31,6 +31,7 @@ function Board() {
     snapshot.forEach((doc) => {
       let player_temp = doc.data();
       player_temp.name = player_temp.nameLast + ", " + player_temp.nameFirst;
+      player_temp.salary = currency(player_temp.salary);
       players_temp.push(player_temp);
       franchise_set.add(doc.data().franchise);
     });
@@ -41,11 +42,11 @@ function Board() {
       let franchise_players = players_temp.filter( player => player.franchise === franchise.franchise)
       franchise.player_count = franchise_players.length;
       franchise.spent = currency(franchise_players.reduce((accumulator, object) => {
-          return accumulator + object.salary; }, 0) );
+          return accumulator + Number(object.salary); }, 0) );
       franchise.remain = currency(global.config.salary_cap - franchise.spent);
       //TODO: max bid
       franchise.total_rating = wholenum(franchise_players.reduce((accumulator, object) => {
-          return accumulator + object.rating; }, 0) );
+          return accumulator + Number(object.rating); }, 0) );
       });
 
     setPlayers(players_temp);
@@ -66,6 +67,8 @@ function Board() {
 
       <h4>Salary cap: {currency(global.config.salary_cap)}</h4>
 
+      <div className="pure-g">
+      <div className="pure-u-11-12">
       {franchises.map(franchise =>
         <div><Team 
             franchise={franchise}
@@ -73,7 +76,7 @@ function Board() {
               .sort(player_sort_func)}
             key={franchise.franchise} /></div>
       )}
-
+      </div></div>
       { /* console.log(players) */ }
       { console.log(franchises) }
 
