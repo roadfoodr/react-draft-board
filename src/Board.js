@@ -16,10 +16,10 @@ function Board() {
 
   const [sortField, setSortField] = useState("franchise"); 
   const [colorField, setColorField] = useState("franchise");
+  const [sortAscend, setSortAscend] = useState(1);
 
   const franchise_sort_func = (f1, f2) => {
-    return maybenum(f1[sortField]) <= maybenum(f2[sortField]) ?
-    -1 : 1;
+    return (maybenum(f1[sortField]) >= maybenum(f2[sortField]) ? 1 : -1) * sortAscend;
 }
 
   // useEffect(() => {
@@ -82,11 +82,13 @@ function Board() {
       <div className="pure-g">
       <div className="pure-u-11-12">
       { console.log(franchises) }
+      { console.log(sortAscend) }
       {franchises.sort(franchise_sort_func).map(franchise =>
         <div><Team 
             franchise={franchise}
             players={players.filter(player => player.franchise === franchise.franchise)}
-            setSortField={setSortField} setColorField={setColorField}
+            sortField={sortField} colorField={colorField} sortAscend={sortAscend}
+            setSortField={setSortField} setColorField={setColorField} setSortAscend={setSortAscend}
             key={franchise.franchise} /></div>
       )}
       </div></div>
