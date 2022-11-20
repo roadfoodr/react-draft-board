@@ -6,6 +6,7 @@ import Team from './Components/Team.js';
 
 const currency = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(2); }
 const wholenum = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(0); }
+const maybenum = (n) => { return isNaN(Number(n)) ? n : Number(n); }
 
 
 function Board() {
@@ -13,8 +14,24 @@ function Board() {
   const [players, setPlayers] = useState([]); 
   const [franchises, setFranchises] = useState([]);
 
+  const [sortField, setSortField] = useState("franchise"); 
+  const [colorField, setColorField] = useState("franchise");
+
+  const franchise_sort_func = (f1, f2) => {
+    return maybenum(f1[sortField]) <= maybenum(f2[sortField]) ?
+    -1 : 1;
+}
+
+  // useEffect(() => {
+  //   console.log(sortField);
+  //   console.log(colorField);
+  //   setFranchises(franchises.sort(franchise_sort_func));
+
+  //   }, [sortField, colorField])
+
 
   useEffect(() => {
+    console.log("initial useEffect");
     let players_temp = [];
     let franchise_set = new Set();
     getDocs(collection(db, "players")).then((snapshot) => {
@@ -47,7 +64,6 @@ function Board() {
 
     setPlayers(players_temp);
     setFranchises(franchise_temp);
-
     })
   }, [])
 
@@ -65,15 +81,15 @@ function Board() {
 
       <div className="pure-g">
       <div className="pure-u-11-12">
-      {franchises.map(franchise =>
+      { console.log(franchises) }
+      {franchises.sort(franchise_sort_func).map(franchise =>
         <div><Team 
             franchise={franchise}
             players={players.filter(player => player.franchise === franchise.franchise)}
+            setSortField={setSortField} setColorField={setColorField}
             key={franchise.franchise} /></div>
       )}
       </div></div>
-      { /* console.log(players) */ }
-      { console.log(franchises) }
 
 
     </div>
