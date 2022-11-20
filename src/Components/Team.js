@@ -38,11 +38,12 @@ const Team = (props) => {
             <span style={{ paddingTop:4, paddingRight:4, paddingBottom:4, paddingLeft:0 }}>
                 <small>left:</small><strong>${props.franchise.remain}</strong></span>
             { /* <span><br></br></span> */ }
-            <span style={{ padding:4 }}><small>max:</small><strong>${props.franchise.remain}</strong></span>
+            <span style={{ padding:4 }}><small>max:</small><strong>${props.franchise.maxbid}</strong></span>
             <span style={{ padding:4 }}><small>rnkg:</small><strong>{props.franchise.total_rating}</strong></span>
         </caption>
         <tbody>
 
+        { /* // TODO: within position, sort by timestamp instead of salary? */ }
         {props.players.sort(player_sort_func).map(player =>
             <Player player={player} key={player.name+player.position+player.team} />
         )}

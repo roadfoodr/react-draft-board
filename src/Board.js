@@ -38,7 +38,9 @@ function Board() {
       franchise.spent = currency(franchise_players.reduce((accumulator, object) => {
           return accumulator + Number(object.salary); }, 0) );
       franchise.remain = currency(global.config.salary_cap - franchise.spent);
-      //TODO: max bid
+      franchise.maxbid = currency(global.config.salary_cap - franchise.spent 
+          - ((global.config.player_cap - franchise.player_count) * global.config.bid_min) 
+          + global.config.bid_min);
       franchise.total_rating = wholenum(franchise_players.reduce((accumulator, object) => {
           return accumulator + Number(object.rating); }, 0) );
       });
