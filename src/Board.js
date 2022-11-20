@@ -7,15 +7,6 @@ import Team from './Components/Team.js';
 const currency = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(2); }
 const wholenum = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(0); }
 
-let position_sort_costs = new Map();
-["DB", "LB", "K", "WRTE", "RB", "QB"].forEach((pos, i) => {
-  position_sort_costs.set(pos, i * 1000);
-});
-const player_sort_func = (p1, p2) => {
-  return (p1.salary + position_sort_costs.get(p1.combined_position)) >= 
-         (p2.salary + position_sort_costs.get(p2.combined_position)) ?
-  -1 : 1;
-}
 
 function Board() {
 
@@ -72,8 +63,7 @@ function Board() {
       {franchises.map(franchise =>
         <div><Team 
             franchise={franchise}
-            players={players.filter(player => player.franchise === franchise.franchise)
-              .sort(player_sort_func)}
+            players={players.filter(player => player.franchise === franchise.franchise)}
             key={franchise.franchise} /></div>
       )}
       </div></div>
