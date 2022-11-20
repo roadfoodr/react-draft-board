@@ -30,10 +30,11 @@ const Team = (props) => {
         <table className="team-container pure-table pure-table-bordered" style={{margin:10}}>
         <caption style={{ backgroundColor: bgColor, minWidth:425}}>
             <h2>{props.franchise.franchise}</h2>
-            <span style={{ padding:4 }}><small>plyrs:</small><strong>{props.franchise.player_count}|18</strong></span>
+            <span style={{ padding:4 }}><small>plyrs:</small><strong>{props.franchise.player_count_off}</strong>|
+                <strong>{props.franchise.player_count_dst}</strong></span>
             <span style={{ paddingTop:4, paddingRight:0, paddingBottom:4, paddingLeft:4 }}>
                 <small>spnt:</small><strong>${props.franchise.spent}</strong></span>
-            <span style={{ padding:2 }}><small>/</small></span>
+            <span style={{ padding:1 }}>|</span>
             <span style={{ paddingTop:4, paddingRight:4, paddingBottom:4, paddingLeft:0 }}>
                 <small>left:</small><strong>${props.franchise.remain}</strong></span>
             { /* <span><br></br></span> */ }

@@ -30,8 +30,11 @@ function Board() {
     let franchise_temp = [...franchise_set].sort().map( franchise => ({"franchise": franchise}) );
     franchise_temp.forEach( franchise => {
       let franchise_players = players_temp.filter( player => player.franchise === franchise.franchise)
-      //TODO: separate into offense | DST
       franchise.player_count = franchise_players.length;
+      franchise.player_count_off = franchise_players.filter( player => 
+          ["QB", "RB", "WR", "TE", "WRTE"].includes(player.position) ).length;
+      franchise.player_count_dst = franchise_players.filter( player => 
+          ["K", "LB", "DE", "DB"].includes(player.position) ).length;
       franchise.spent = currency(franchise_players.reduce((accumulator, object) => {
           return accumulator + Number(object.salary); }, 0) );
       franchise.remain = currency(global.config.salary_cap - franchise.spent);
