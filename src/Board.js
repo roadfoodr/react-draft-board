@@ -14,7 +14,6 @@ function Board() {
   const [franchises, setFranchises] = useState([]);
 
 
-
   useEffect(() => {
     let players_temp = [];
     let franchise_set = new Set();
@@ -31,6 +30,7 @@ function Board() {
     let franchise_temp = [...franchise_set].sort().map( franchise => ({"franchise": franchise}) );
     franchise_temp.forEach( franchise => {
       let franchise_players = players_temp.filter( player => player.franchise === franchise.franchise)
+      //TODO: separate into offense | DST
       franchise.player_count = franchise_players.length;
       franchise.spent = currency(franchise_players.reduce((accumulator, object) => {
           return accumulator + Number(object.salary); }, 0) );

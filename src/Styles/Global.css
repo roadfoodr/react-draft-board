@@ -1,2 +1,9 @@
 @import url('https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css');
 @import url('https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@300;400;500;600;700&display=swap');
+
+
+
+html {
+    font-family: 'Noto Sans Mono', monospace, sans-serif;
+}

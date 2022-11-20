@@ -28,16 +28,17 @@ const Team = (props) => {
     return (
         <div className="pure-u-11-12 pure-u-md-1-3">
         <table className="team-container pure-table pure-table-bordered" style={{margin:10}}>
-        <caption style={{ backgroundColor: bgColor, minWidth:400 }}>
-            <h3>{props.franchise.franchise}</h3>
-            <span style={{ padding:4 }}><small>plyrs:</small> <strong>{props.franchise.player_count}</strong></span>
+        <caption style={{ backgroundColor: bgColor, minWidth:425}}>
+            <h2>{props.franchise.franchise}</h2>
+            <span style={{ padding:4 }}><small>plyrs:</small><strong>{props.franchise.player_count}|18</strong></span>
             <span style={{ paddingTop:4, paddingRight:0, paddingBottom:4, paddingLeft:4 }}>
-                <small>spnt:</small> <strong>${props.franchise.spent}</strong></span>
-            <span style={{ padding:4 }}>/</span>
+                <small>spnt:</small><strong>${props.franchise.spent}</strong></span>
+            <span style={{ padding:2 }}><small>/</small></span>
             <span style={{ paddingTop:4, paddingRight:4, paddingBottom:4, paddingLeft:0 }}>
-                <small>left:</small> <strong>${props.franchise.remain}</strong></span>
-            <span style={{ padding:4 }}><small>max bid:</small> <strong>${props.franchise.remain}</strong></span>
-            <span style={{ padding:4 }}><small>rnkg:</small> <strong>{props.franchise.total_rating}</strong></span>
+                <small>left:</small><strong>${props.franchise.remain}</strong></span>
+            { /* <span><br></br></span> */ }
+            <span style={{ padding:4 }}><small>max:</small><strong>${props.franchise.remain}</strong></span>
+            <span style={{ padding:4 }}><small>rnkg:</small><strong>{props.franchise.total_rating}</strong></span>
         </caption>
         <tbody>
 

@@ -4,11 +4,14 @@
 
 .pure-table caption {
     color: #000;
-    font: 100%/1 arial,sans-serif !important;
+    font: 100%/1 'Noto Sans Mono', monospace, sans-serif !important;
+	font-size: 100%;
+	font-style: normal;
     padding: 0 0 1em 0 !important;
 /*    -webkit-text-stroke-width: .05px;
     -webkit-text-stroke-color: white;
 */    text-align: center;
+/*    line-height: 3;*/
 }
 
 .pure-table td, .pure-table th {
