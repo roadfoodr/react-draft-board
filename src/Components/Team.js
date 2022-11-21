@@ -25,12 +25,15 @@ const bgColor = 'lightGray';
 
 const Team = (props) => {
 
-    console.log("entering Team")
-    console.log(props)
+    console.log("entering Team");
+    console.log(props);
     return (
         <div className="pure-u-11-12 pure-u-md-1-3">
-        <table className="team-container pure-table pure-table-bordered" style={{margin:10}}>
-        <caption style={{ backgroundColor: bgColor, minWidth:425}}>
+        <table className="team-container pure-table pure-table-bordered" 
+               style={{marginBottom:(props.expanded ? 12 : 5)}}>
+        <caption style={{ backgroundColor: bgColor, minWidth:425 }}
+            onClick={(e)=>{if(e.target === e.currentTarget) {
+                              props.setExpanded(!props.expanded);}}}>
         { /* TODO: highlight current sort field? */ }
             <h2 onClick={()=>{props.setSortAscend(
                                 props.sortField === "franchise" ? props.sortAscend * -1 : 1);
@@ -38,7 +41,7 @@ const Team = (props) => {
                 {props.franchise.franchise}</h2>
             <span style={{ padding:4 }} 
                 onClick={()=>{props.setSortAscend(
-                                props.sortField === "player_count" ? props.sortAscend * -1 : -1);
+                              props.sortField === "player_count" ? props.sortAscend * -1 : -1);
                               props.setSortField("player_count"); }}>
                 <small>plyrs:</small><strong>{props.franchise.player_count_off}</strong>|
                 <strong>{props.franchise.player_count_dst}</strong></span>
@@ -67,11 +70,13 @@ const Team = (props) => {
         </caption>
         <tbody>
 
-        { /* // TODO: within position, sort by timestamp instead of salary? */ }
-        {props.players.sort(player_sort_func).map(player =>
-            <Player player={player} key={player.name+player.position+player.team} />
-        )}
-
+        { /* Show Player rows if in "expanded" mode  */ }
+        {props.expanded && <span>
+            { /* // TODO: within position, sort by timestamp instead of salary? */ }
+            {props.players.sort(player_sort_func).map(player =>
+                <Player player={player} key={player.name+player.position+player.team} />
+            )}</span>
+        }
         </tbody></table></div>
     
     )

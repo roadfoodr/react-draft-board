@@ -17,6 +17,7 @@ function Board() {
   const [sortField, setSortField] = useState("franchise"); 
   const [colorField, setColorField] = useState("franchise");
   const [sortAscend, setSortAscend] = useState(1);
+  const [expanded, setExpanded] = useState(true);
 
   const franchise_sort_func = (f1, f2) => {
     return (maybenum(f1[sortField]) >= maybenum(f2[sortField]) ? 1 : -1) * sortAscend;
@@ -87,8 +88,10 @@ function Board() {
         <div><Team 
             franchise={franchise}
             players={players.filter(player => player.franchise === franchise.franchise)}
-            sortField={sortField} colorField={colorField} sortAscend={sortAscend}
-            setSortField={setSortField} setColorField={setColorField} setSortAscend={setSortAscend}
+            sortField={sortField} colorField={colorField} 
+            sortAscend={sortAscend} expanded={expanded}
+            setSortField={setSortField} setColorField={setColorField} 
+            setSortAscend={setSortAscend} setExpanded={setExpanded}
             key={franchise.franchise} /></div>
       )}
       </div></div>
