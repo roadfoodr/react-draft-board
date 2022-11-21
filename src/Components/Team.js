@@ -82,11 +82,11 @@ const Team = (props) => {
                 <strong>{props.franchise.player_count_off}</strong>|
                 <strong>{props.franchise.player_count_dst}</strong></span>
             <span onClick={()=>{props.setSortAscend(
-                                  props.sortField === "remain" ? props.sortAscend * -1 : 1);
-                                props.setSortField("remain"); 
+                                  props.sortField === "spent" ? props.sortAscend * -1 : 1);
+                                props.setSortField("spent"); 
                                 props.setColorField("remain"); }}>
                 <span style={{ paddingTop:4, paddingRight:0, paddingBottom:4, paddingLeft:4 }}>
-                    <small className={ (props.sortField === "remain") && 
+                    <small className={ (props.sortField === "spent") && 
                             (props.sortAscend === 1 ? "underscore" : "overscore") }>spnt</small>
                     <small>:</small>
                     <strong>${props.franchise.spent}</strong></span>
