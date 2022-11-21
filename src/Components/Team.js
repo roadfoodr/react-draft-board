@@ -59,14 +59,16 @@ const Team = (props) => {
     return (
         <div className="pure-u-11-12 pure-u-md-1-3">
         <table className="team-container pure-table pure-table-bordered" 
+               id={props.franchise_index===0 ? "first-table" : null}
                style={{marginBottom:(props.expanded ? 12 : 5)}}>
         <caption style={{ backgroundColor:getBgColor(), 
                           color:isDark(getBgColor())?'#EEEEEE':'#000000', 
                           minWidth:425 }}
             onClick={(e)=>{if(e.target === e.currentTarget) {
                               props.setExpanded(!props.expanded);}}}>
-        { /* TODO: highlight current sort field? */ }
-            <h2 onClick={()=>{props.setSortAscend(
+            <h2 className={ (props.sortField === "franchise") && 
+                            (props.sortAscend === 1 ? "underscore" : "overscore") }
+                onClick={()=>{props.setSortAscend(
                                 props.sortField === "franchise" ? props.sortAscend * -1 : 1);
                               props.setSortField("franchise"); }}>
                 {props.franchise.franchise}</h2>
@@ -74,14 +76,20 @@ const Team = (props) => {
                 onClick={()=>{props.setSortAscend(
                               props.sortField === "player_count" ? props.sortAscend * -1 : -1);
                               props.setSortField("player_count"); }}>
-                <small>plyrs:</small><strong>{props.franchise.player_count_off}</strong>|
+                <small className={ (props.sortField === "player_count") && 
+                            (props.sortAscend === 1 ? "underscore" : "overscore") }>plyrs</small>
+                <small>:</small>
+                <strong>{props.franchise.player_count_off}</strong>|
                 <strong>{props.franchise.player_count_dst}</strong></span>
             <span onClick={()=>{props.setSortAscend(
                                   props.sortField === "remain" ? props.sortAscend * -1 : 1);
                                 props.setSortField("remain"); 
                                 props.setColorField("remain"); }}>
                 <span style={{ paddingTop:4, paddingRight:0, paddingBottom:4, paddingLeft:4 }}>
-                    <small>spnt:</small><strong>${props.franchise.spent}</strong></span>
+                    <small className={ (props.sortField === "remain") && 
+                            (props.sortAscend === 1 ? "underscore" : "overscore") }>spnt</small>
+                    <small>:</small>
+                    <strong>${props.franchise.spent}</strong></span>
                 <span style={{ padding:1 }}>|</span>
                 <span style={{ paddingTop:4, paddingRight:4, paddingBottom:4, paddingLeft:0 }}>
                     <small>left:</small><strong>${props.franchise.remain}</strong></span>
@@ -91,13 +99,19 @@ const Team = (props) => {
                 onClick={()=>{props.setSortAscend(
                                 props.sortField === "maxbid" ? props.sortAscend * -1 : -1);
                               props.setSortField("maxbid"); }}>
-                <small>max:</small><strong>${props.franchise.maxbid}</strong></span>
+                <small className={ (props.sortField === "maxbid") && 
+                            (props.sortAscend === 1 ? "underscore" : "overscore") }>max</small>
+                <small>:</small>
+                <strong>${props.franchise.maxbid}</strong></span>
             <span style={{ padding:4 }} 
                 onClick={()=>{props.setSortAscend(
                                 props.sortField === "total_rating" ? props.sortAscend * -1 : -1);
                               props.setSortField("total_rating"); 
                               props.setColorField("total_rating"); }}>
-                <small>rnkg:</small><strong>{props.franchise.total_rating}</strong></span>
+                <small className={ (props.sortField === "total_rating") && 
+                            (props.sortAscend === 1 ? "underscore" : "overscore") }>rnkg</small>
+                <small>:</small>
+                <strong>{props.franchise.total_rating}</strong></span>
         </caption>
         <tbody>
 

@@ -77,9 +77,10 @@ function Board() {
       <div className="pure-u-11-12">
       { console.log(franchises) }
       { console.log(sortAscend) }
-      {franchises.sort(franchise_sort_func).map(franchise =>
+      {franchises.sort(franchise_sort_func).map((franchise, i) =>
         <div><Team 
             franchise={franchise}
+            franchise_index={i}
             players={players.filter(player => player.franchise === franchise.franchise)}
             sortField={sortField} colorField={colorField} 
             sortAscend={sortAscend} expanded={expanded}

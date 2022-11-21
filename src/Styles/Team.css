@@ -17,3 +17,14 @@
 .pure-table td, .pure-table th {
     padding: 0.25em 0.5em;
 }
+
+#first-table .overscore {
+	text-decoration: overline;
+	text-decoration-thickness: 0.5px;
+}
+
+#first-table .underscore {
+	text-decoration: underline;
+	text-decoration-thickness: 0.5px;
+	text-underline-offset: 5px;
+}
