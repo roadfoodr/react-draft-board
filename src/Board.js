@@ -15,24 +15,17 @@ function Board() {
   const [franchises, setFranchises] = useState([]);
 
   const [sortField, setSortField] = useState("franchise"); 
-  const [colorField, setColorField] = useState("franchise");
+  const [colorField, setColorField] = useState("remain");
   const [sortAscend, setSortAscend] = useState(1);
   const [expanded, setExpanded] = useState(true);
 
   const franchise_sort_func = (f1, f2) => {
     return (maybenum(f1[sortField]) >= maybenum(f2[sortField]) ? 1 : -1) * sortAscend;
-}
-
-  // useEffect(() => {
-  //   console.log(sortField);
-  //   console.log(colorField);
-  //   setFranchises(franchises.sort(franchise_sort_func));
-
-  //   }, [sortField, colorField])
-
+    }
 
   useEffect(() => {
     console.log("initial useEffect");
+    // read all players from db
     let players_temp = [];
     let franchise_set = new Set();
     getDocs(collection(db, "players")).then((snapshot) => {

@@ -3,12 +3,23 @@ import Player from './Player.js';
 
 import '../Styles/Team.css';
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-// import { faHeart as faHeartRegular} from '@fortawesome/free-regular-svg-icons';
+// https://www.trysmudford.com/blog/linear-interpolation-functions/
+const clamp = (a: number, min = 0, max = 1) => Math.min(max, Math.max(min, a));
+const invlerp = (x: number, y: number, a: number) => clamp((a - x) / (y - x));
 
-// const heartSolid = <FontAwesomeIcon icon={faHeartSolid} />;
-// const heartOutline = <FontAwesomeIcon icon={faHeartRegular} />;
+let colormap = require('colormap');
+let colors_remain = colormap({
+    colormap: 'viridis',
+    nshades: 100,
+    format: 'hex',
+    alpha: 1
+});
+let colors_ranks = colormap({
+    colormap: 'bluered',
+    nshades: 100,
+    format: 'hex',
+    alpha: 1
+});
 
 // hack to combine a 2-level sort into 1 level
 let position_sort_costs = new Map();
@@ -21,9 +32,16 @@ const player_sort_func = (p1, p2) => {
   -1 : 1;
 }
 
-const bgColor = 'lightGray';
 
 const Team = (props) => {
+
+    const getBgColor = () => {
+        const rangemin = (props.colorField === 'remain' ? 0 : global.config.rating_cscale_cap_min);
+        const rangemax = (props.colorField === 'remain' ? global.config.salary_cap : global.config.rating_cscale_cap_max);
+        let palette = require('color-interpolate')(props.colorField === 'remain' ? colors_remain : colors_ranks);
+        let color_index = invlerp(rangemin, rangemax, Number(props.franchise[props.colorField]));
+        return palette(color_index);
+    }
 
     console.log("entering Team");
     console.log(props);
@@ -31,7 +49,7 @@ const Team = (props) => {
         <div className="pure-u-11-12 pure-u-md-1-3">
         <table className="team-container pure-table pure-table-bordered" 
                style={{marginBottom:(props.expanded ? 12 : 5)}}>
-        <caption style={{ backgroundColor: bgColor, minWidth:425 }}
+        <caption style={{ backgroundColor:getBgColor(), minWidth:425 }}
             onClick={(e)=>{if(e.target === e.currentTarget) {
                               props.setExpanded(!props.expanded);}}}>
         { /* TODO: highlight current sort field? */ }
@@ -46,9 +64,9 @@ const Team = (props) => {
                 <small>plyrs:</small><strong>{props.franchise.player_count_off}</strong>|
                 <strong>{props.franchise.player_count_dst}</strong></span>
             <span onClick={()=>{props.setSortAscend(
-                                  props.sortField === "spent" ? props.sortAscend * -1 : 1);
-                                props.setSortField("spent"); 
-                                props.setColorField("spent"); }}>
+                                  props.sortField === "remain" ? props.sortAscend * -1 : 1);
+                                props.setSortField("remain"); 
+                                props.setColorField("remain"); }}>
                 <span style={{ paddingTop:4, paddingRight:0, paddingBottom:4, paddingLeft:4 }}>
                     <small>spnt:</small><strong>${props.franchise.spent}</strong></span>
                 <span style={{ padding:1 }}>|</span>
