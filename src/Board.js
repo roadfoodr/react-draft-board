@@ -25,7 +25,9 @@ function Board() {
   const [expanded, setExpanded] = useState(true);
 
   const franchise_sort_func = (f1, f2) => {
-    return (maybenum(f1[sortField]) >= maybenum(f2[sortField]) ? 1 : -1) * sortAscend;
+    return (maybenum(f1[sortField]) === maybenum(f2[sortField]) ?
+            (f1.franchise <= f2.franchise ? -1: 1) :
+            (maybenum(f1[sortField]) >= maybenum(f2[sortField]) ? 1 : -1) * sortAscend);
     }
 
   useEffect(() => {
