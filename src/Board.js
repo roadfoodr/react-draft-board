@@ -11,7 +11,11 @@ const maybenum = (n) => { return isNaN(Number(n)) ? n : Number(n); }
 
 function Board() {
 
-  const [players, setPlayers] = useState([]); 
+  const [tick, setTick] = useState(0);
+  const [tickIntervalID, setTickIntervalID] = useState(null);
+  const [tickPaused, setTickPaused] = useState(true);
+
+  const [players, setPlayers] = useState([]);
   const [franchises, setFranchises] = useState([]);
 
   const [sortField, setSortField] = useState("franchise"); 
@@ -24,7 +28,25 @@ function Board() {
     }
 
   useEffect(() => {
-    console.log("initial useEffect");
+    // Start the tick sequence for the first time
+    setTickPaused(false);
+  }, []);
+
+  useEffect(() => {
+    if (!tickPaused) {
+      const interval = setInterval(() => {
+        setTick(tick => tick + 1);
+      }, global.config.tick_interval);
+      setTickIntervalID(interval);
+    } else {
+      clearInterval(tickIntervalID);
+    }
+
+  }, [tickPaused]);
+
+
+  useEffect(() => {
+    console.log("inside tick useEffect, tick = " + tick);
     // read all players from db
     let players_temp = [];
     let franchise_set = new Set();
@@ -58,8 +80,11 @@ function Board() {
 
     setPlayers(players_temp);
     setFranchises(franchise_temp);
+
+    // as a sanity measure, automatically pause after a while
+    if (tick > global.config.max_ticks) { setTickPaused(true); }
     })
-  }, [])
+  }, [tick])
 
 
   return (
@@ -70,13 +95,12 @@ function Board() {
         </h1>
       </header>
 
-
       <h4>Salary cap: {currency(global.config.salary_cap)}</h4>
 
       <div className="pure-g">
       <div className="pure-u-11-12">
-      { console.log(franchises) }
-      { console.log(sortAscend) }
+      { /* { console.log(franchises) } */}
+      { /* { console.log(sortAscend) } */}
       {franchises.sort(franchise_sort_func).map((franchise, i) =>
         <div><Team 
             franchise={franchise}

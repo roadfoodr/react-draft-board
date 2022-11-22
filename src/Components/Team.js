@@ -11,10 +11,10 @@ const invlerp = (x: number, y: number, a: number) => clamp((a - x) / (y - x));
 // TODO: look into TinyColor: https://github.com/bgrins/TinyColor
 //       https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
 const isDark = (bgColor) => {
-    let rgb = bgColor.split( ',' ) ;
-    let r=parseInt( rgb[0].substring(4) ) ; // skip rgb(
-    let g=parseInt( rgb[1] ) ; 
-    let b=parseInt( rgb[2] ) ; // parseInt scraps trailing )
+    let rgb = bgColor.split( ',' );
+    let r=parseInt( rgb[0].substring(4) ); // skip rgb(
+    let g=parseInt( rgb[1] ); 
+    let b=parseInt( rgb[2] ); // parseInt scraps trailing )
     // threshold of 122 seems to work better than original value of 186 for these palettes
     return (((r * 0.299) + (g * 0.587) + (b * 0.114)) > 122) ? false : true;
 };
@@ -54,8 +54,8 @@ const Team = (props) => {
         let color_index = invlerp(rangemin, rangemax, Number(props.franchise[props.colorField]));
         return palette(color_index);
     }
-    console.log("entering Team");
-    console.log(props);
+    // console.log("entering Team");
+    // console.log(props);
     return (
         <div className="pure-u-11-12 pure-u-md-1-3">
         <table className="team-container pure-table pure-table-bordered" 
