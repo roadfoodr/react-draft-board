@@ -57,13 +57,13 @@ const Team = (props) => {
     // console.log("entering Team");
     // console.log(props);
     return (
-        <div className="pure-u-11-12 pure-u-md-1-3">
-        <table className="team-container pure-table pure-table-bordered" 
+        <div className="pure-u-12-12 pure-u-sm-3-8 pure-u-lg-1-4 is-center">
+        <table className="team-container pure-table pure-table-bordered is-center" 
                id={props.franchise_index===0 ? "first-table" : null}
-               style={{marginBottom:(props.expanded ? 12 : 5)}}>
+               style={{marginBottom:(props.expanded ? 12 : 5), maxWidth:405}}>
         <caption style={{ backgroundColor:getBgColor(), 
                           color:isDark(getBgColor())?'#EEEEEE':'#000000', 
-                          minWidth:425 }}
+                          minWidth:405 }}
             onClick={(e)=>{if(e.target === e.currentTarget) {
                               props.setExpanded(!props.expanded);}}}>
             <h2 className={ (props.sortField === "franchise") && 

@@ -1,5 +1,8 @@
 .team-container {
-	font-size: 80%;
+	font-size: 76%;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
 .pure-table caption {
@@ -8,9 +11,7 @@
 	font-size: 100%;
 	font-style: normal;
     padding: 0 0 1em 0 !important;
-/*    -webkit-text-stroke-width: .05px;
-    -webkit-text-stroke-color: white;
-*/    text-align: center;
+    text-align: center;
 /*    line-height: 3;*/
 }
 
