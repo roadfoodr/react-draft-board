@@ -61,7 +61,7 @@ function Board() {
     });
 
     // Compute summaries for each franchise
-    let franchise_temp = [...franchise_set].sort().map( franchise => ({"franchise": franchise}) );
+    let franchise_temp = [...franchise_set].map( franchise => ({"franchise": franchise}) );
     franchise_temp.forEach( franchise => {
       let franchise_players = players_temp.filter( player => player.franchise === franchise.franchise)
       franchise.player_count = franchise_players.length;
