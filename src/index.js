@@ -11,8 +11,7 @@ import './Styles/Global.css';
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-    <Route path="/" element={<App/>}></Route>
-    <Route path="/board" element={<Board/>}></Route>
+    <Route path="/" element={<Board/>}></Route>
     <Route path="/add/:franchise/:nameLast/:nameFirst/:position/:team/:salary/:rating" element={<Add/>}></Route>
     </Routes>
   </BrowserRouter>,
