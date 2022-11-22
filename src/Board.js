@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {db} from "./firebase"
 import {collection, getDocs} from "firebase/firestore"
 
+import UpdateControls from './Components/UpdateControls.js';
 import Team from './Components/Team.js';
 
 const currency = (n) => { n=parseFloat(n); return isNaN(n) ? false : n.toFixed(2); }
@@ -88,17 +89,20 @@ function Board() {
 
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <header>
-        <h1>
-          Draft Board
-        </h1>
-      </header>
+    <div className="content-wrapper">
+      <header></header>
 
-      <h4>Salary cap: {currency(global.config.salary_cap)}</h4>
+      <h1 className="is-center">
+        Draft Board
+      </h1>
 
-      <div className="pure-g">
-      <div className="pure-u-11-12">
+      <div className="is-center">
+      <UpdateControls 
+          tick={tick} tickPaused={tickPaused}
+          setTick={setTick} setTickPaused={setTickPaused} />
+      </div>
+
+      <div className="is-center">
       { /* { console.log(franchises) } */}
       { /* { console.log(sortAscend) } */}
       {franchises.sort(franchise_sort_func).map((franchise, i) =>
@@ -112,7 +116,7 @@ function Board() {
             setSortAscend={setSortAscend} setExpanded={setExpanded}
             key={franchise.franchise} /></div>
       )}
-      </div></div>
+      </div>
 
 
     </div>
