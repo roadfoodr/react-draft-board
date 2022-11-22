@@ -8,5 +8,7 @@ module.exports = global.config = {
 	player_cap: 24,
 	bid_min: .05,
 	rating_cscale_cap_max: 95,
-	rating_cscale_cap_min: -5
+	rating_cscale_cap_min: -5,
+	colormap_colors_remain: 'viridis',
+	colormap_colors_ranks: 'bluered'
 };

@@ -1,37 +1,8 @@
 import React from 'react';
 import Player from './Player.js';
-
+import { clamp, invlerp, isDark, colormap, colors_ranks, colors_remain } from '../Utils/colorfuncs.js'
 import '../Styles/Team.css';
 
-// https://www.trysmudford.com/blog/linear-interpolation-functions/
-const clamp = (a: number, min = 0, max = 1) => Math.min(max, Math.max(min, a));
-const invlerp = (x: number, y: number, a: number) => clamp((a - x) / (y - x));
-
-// https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-// TODO: look into TinyColor: https://github.com/bgrins/TinyColor
-//       https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-const isDark = (bgColor) => {
-    let rgb = bgColor.split( ',' );
-    let r=parseInt( rgb[0].substring(4) ); // skip rgb(
-    let g=parseInt( rgb[1] ); 
-    let b=parseInt( rgb[2] ); // parseInt scraps trailing )
-    // threshold of 122 seems to work better than original value of 186 for these palettes
-    return (((r * 0.299) + (g * 0.587) + (b * 0.114)) > 122) ? false : true;
-};
-
-let colormap = require('colormap');
-let colors_remain = colormap({
-    colormap: 'viridis',
-    nshades: 100,
-    format: 'hex',
-    alpha: 1
-});
-let colors_ranks = colormap({
-    colormap: 'bluered',
-    nshades: 100,
-    format: 'hex',
-    alpha: 1
-});
 
 // hack to combine a 2-level sort into 1 level
 let position_sort_costs = new Map();
