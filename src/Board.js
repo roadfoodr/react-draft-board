@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {db} from "./firebase"
-import {collection, getDocs} from "firebase/firestore"
+import {collection, getDocs, orderBy} from "firebase/firestore"
 
 import UpdateControls from './Components/UpdateControls.js';
 import Team from './Components/Team.js';
@@ -53,7 +53,9 @@ function Board() {
     // read all players from db
     let players_temp = [];
     let franchise_set = new Set();
-    getDocs(collection(db, "players")).then((snapshot) => {
+    getDocs(collection(db, "players"), 
+      orderBy("nameLast"), orderBy("nameFirst"), orderBy("position"), orderBy("team"), 
+      ).then((snapshot) => {
     snapshot.forEach((doc) => {
       let player_temp = doc.data();
       player_temp.name = player_temp.nameLast + ", " + player_temp.nameFirst;
@@ -63,7 +65,7 @@ function Board() {
     });
 
     // Compute summaries for each franchise
-    let franchise_temp = [...franchise_set].map( franchise => ({"franchise": franchise}) );
+    let franchise_temp = [...franchise_set].sort().map( franchise => ({"franchise": franchise}) );
     franchise_temp.forEach( franchise => {
       let franchise_players = players_temp.filter( player => player.franchise === franchise.franchise)
       franchise.player_count = franchise_players.length;
@@ -81,15 +83,25 @@ function Board() {
           return accumulator + Number(object.rating); }, 0) );
       });
 
-    setPlayers(players_temp);
-    setFranchises(franchise_temp);
+    // Need to explicitly prevent "equal" reassignment because the default Object.js comparison is not deep
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+    // https://masteringjs.io/tutorials/fundamentals/compare-arrays
+    // console.log('new: ' + JSON.stringify(franchise_temp));
+    // console.log('old: ' + JSON.stringify(franchises));
+    if (JSON.stringify(players_temp) !== JSON.stringify(players)) {
+      setPlayers(players_temp);
+    }
+    if (JSON.stringify(franchise_temp) !== JSON.stringify(franchises)) {
+      setFranchises(franchise_temp);
+    }
 
-    // as a sanity measure, automatically pause after a while
+    // as a sanity measure, automatically pause updates after a while
     if (tick > global.config.max_ticks) { setTickPaused(true); }
     })
   }, [tick])
 
 
+  // TODO: need useMemo to prevent Board re-render when only tick changes 
   return (
     <div className="content-wrapper">
       <header></header>
