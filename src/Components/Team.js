@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { createRef } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 import Player from './Player.js';
 import { clamp, invlerp, isDark, colormap, colors_ranks, colors_remain } from '../Utils/colorfuncs.js'
 import '../Styles/Team.css';
@@ -87,11 +89,19 @@ const Team = (props) => {
         <tbody>
 
         { /* Show Player rows if in "expanded" mode  */ }
-        {props.expanded && <span>
+        {props.expanded && <TransitionGroup className="team">
             { /* // TODO: within position, sort by timestamp instead of salary? */ }
-            {props.players.sort(player_sort_func).map(player =>
-                <Player player={player} key={player.name+player.position+player.team} />
-            )}</span>
+            
+                {props.players.sort(player_sort_func).map(player =>
+                    <CSSTransition
+                        key={player.name+player.position+player.team}
+                        timeout={1700}
+                        classNames='player'
+                    >
+                        <Player player={player} key={player.name+player.position+player.team} />
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
         }
         </tbody></table></div>
     

@@ -1,36 +1,64 @@
 .playerColorQB
 {
 	background-color: #F8ADAA !important;
-	color: #000000;
+	color: inherit;
 }
 .playerColorRB
 {
 	background-color: #BCFAAD !important;
-	color: #000000;
+	color: inherit;
 }
 .playerColorWR
 {
 	background-color: #FEFBB6 !important;
-	color: #000000;
+	color: inherit;
 }
 .playerColorTE
 {
 	background-color: #FBD580 !important;
-	color: #000000;
+	color: inherit;
 }
 .playerColorK
 {
 	background-color: #CCB4F0 !important;
-	color: #000000;
+	color: inherit;
 }
 
 .playerColorLB
 {
 	background-color: #AFE1FF;
-	color: #000000;
+	color: inherit;
 }
 .playerColorDB
 {
 	background-color: #ACC8B4;
-	color: #000000;
+	color: inherit;
 }
+
+.player-enter {
+  opacity: 0.15;
+}
+.player-enter-active {
+  opacity: 1;
+  transition: opacity 1700ms ease-in;
+  color: inherit;
+  animation: blink-animation 425ms steps(1) infinite;
+  -webkit-animation: blink-animation 425ms steps(1) infinite;
+}
+@keyframes blink-animation { 50% { color: transparent; } }
+@-webkit-keyframes blink-animation { 50% { color: transparent; } }
+
+.player-enter-done {
+  opacity: 1;
+}
+
+.player-exit {
+  opacity: 1;
+}
+.player-exit-active {
+  opacity: 0;
+  transition: opacity 1700ms ease-out;
+  animation: blink-animation 425ms steps(1) infinite;
+  -webkit-animation: blink-animation 425ms steps(1) infinite;
+}
+
