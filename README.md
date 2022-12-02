@@ -1,5 +1,7 @@
 # react-draft-board
-Display fantasy football team rosters and sortable statistics on public web page as players are added on Draft Day
+Display fantasy football team rosters and sortable statistics on public web page as players are added on Draft Day.
+
+Includes API for legacy systems to add players to cloud database (Google Firestore) used by draft board.
 
 Live demo: https://thedwarfdraft.netlify.app/
 
