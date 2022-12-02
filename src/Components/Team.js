@@ -98,7 +98,7 @@ const Team = (props) => {
                 {props.players.sort(player_sort_func).map(player =>
                     <CSSTransition
                         key={player.name+player.position+player.team}
-                        timeout={1700}
+                        timeout={1600}
                         classNames='player'
                     >
                         <Player player={player} key={player.name+player.position+player.team} />

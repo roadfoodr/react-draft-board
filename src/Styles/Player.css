@@ -23,27 +23,26 @@
 	background-color: #CCB4F0 !important;
 	color: inherit;
 }
-
 .playerColorLB
 {
-	background-color: #AFE1FF;
+	background-color: #AFE1FF !important;
 	color: inherit;
 }
 .playerColorDB
 {
-	background-color: #ACC8B4;
+	background-color: #ADC6FF !important;
 	color: inherit;
 }
 
 .player-enter {
-  opacity: 0.15;
+  opacity: 0.1;
 }
 .player-enter-active {
   opacity: 1;
-  transition: opacity 1700ms ease-in;
+  transition: opacity 1600ms ease-in;
   color: inherit;
-  animation: blink-animation 425ms steps(1) infinite;
-  -webkit-animation: blink-animation 425ms steps(1) infinite;
+  animation: blink-animation ease-out 200ms steps(1) infinite;
+  -webkit-animation: blink-animation 200ms steps(1) infinite;
 }
 @keyframes blink-animation { 50% { color: transparent; } }
 @-webkit-keyframes blink-animation { 50% { color: transparent; } }
@@ -57,8 +56,8 @@
 }
 .player-exit-active {
   opacity: 0;
-  transition: opacity 1700ms ease-out;
-  animation: blink-animation 425ms steps(1) infinite;
-  -webkit-animation: blink-animation 425ms steps(1) infinite;
+  transition: opacity 1600ms ease-in;
+  animation: blink-animation ease-out 200ms steps(1) infinite;
+  -webkit-animation: blink-animation 200ms steps(1) infinite;
 }
 
