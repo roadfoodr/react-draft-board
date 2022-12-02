@@ -30,7 +30,8 @@ const Team = (props) => {
     // console.log("entering Team");
     // console.log(props);
     return (
-        <div className="pure-u-12-12 pure-u-sm-3-8 pure-u-lg-1-4 is-center">
+        <div className="pure-u-12-12 pure-u-sm-3-8 pure-u-lg-1-4 is-center"
+             id={props.franchise.franchise.replace(/\W/g, '')}>
         <table className="team-container pure-table pure-table-bordered is-center" 
                id={props.franchise_index===0 ? "first-table" : null}
                style={{marginBottom:(props.expanded ? 12 : 5), maxWidth:405}}>
@@ -38,7 +39,9 @@ const Team = (props) => {
                           color:isDark(getBgColor())?'#EEEEEE':'#000000', 
                           minWidth:405 }}
             onClick={(e)=>{if(e.target === e.currentTarget) {
-                              props.setExpanded(!props.expanded);}}}>
+                              props.setExpanded(!props.expanded);
+                              props.setAnchorTarget(props.franchise.franchise.replace(/\W/g, ''));
+                    }}}>
             <h2 className={ (props.sortField === "franchise") && 
                             (props.sortAscend === 1 ? "underscore" : "overscore") }
                 onClick={()=>{props.setSortAscend(

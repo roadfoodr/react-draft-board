@@ -23,6 +23,7 @@ function Board() {
   const [colorField, setColorField] = useState("remain");
   const [sortAscend, setSortAscend] = useState(1);
   const [expanded, setExpanded] = useState(true);
+  const [anchorTarget, setAnchorTarget] = useState(null);
 
   const franchise_sort_func = (f1, f2) => {
     return (maybenum(f1[sortField]) === maybenum(f2[sortField]) ?
@@ -44,9 +45,7 @@ function Board() {
     } else {
       clearInterval(tickIntervalID);
     }
-
   }, [tickPaused]);
-
 
   useEffect(() => {
     console.log("inside tick useEffect, tick = " + tick);
@@ -100,6 +99,13 @@ function Board() {
     })
   }, [tick])
 
+  useEffect(() => {
+    if (anchorTarget) {
+      document.getElementById(anchorTarget)
+        .scrollIntoView({ behavior: 'smooth', block: 'end' });
+      setAnchorTarget(null);
+  }}, [anchorTarget]);
+
 
   // TODO: need useMemo to prevent Board re-render when only tick changes 
   return (
@@ -126,8 +132,10 @@ function Board() {
             players={players.filter(player => player.franchise === franchise.franchise)}
             sortField={sortField} colorField={colorField} 
             sortAscend={sortAscend} expanded={expanded}
+            anchorTarget={anchorTarget}
             setSortField={setSortField} setColorField={setColorField} 
             setSortAscend={setSortAscend} setExpanded={setExpanded}
+            setAnchorTarget={setAnchorTarget}
             key={franchise.franchise} /></div>
       )}
       </div>
