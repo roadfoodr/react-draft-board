@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {db} from "./firebase"
 import {collection, getDocs, orderBy} from "firebase/firestore"
 
+import Header from './Components/Header.js';
 import UpdateControls from './Components/UpdateControls.js';
 import Team from './Components/Team.js';
 
@@ -110,23 +111,17 @@ function Board() {
   // TODO: need useMemo to prevent Board re-render when only tick changes 
   return (
     <div className="content-wrapper">
-      <header></header>
+    
+      <Header players={players}/>
 
-      <h1 className="is-center">
-        Draft Board
-      </h1>
-
-      <div className="is-center">
       <UpdateControls 
           tick={tick} tickPaused={tickPaused}
           setTick={setTick} setTickPaused={setTickPaused} />
-      </div>
 
-      <div className="is-center">
       { /* { console.log(franchises) } */}
       { /* { console.log(sortAscend) } */}
       {franchises.sort(franchise_sort_func).map((franchise, i) =>
-        <div><Team 
+        <div className="pure-g is-center"><Team 
             franchise={franchise}
             franchise_index={i}
             players={players.filter(player => player.franchise === franchise.franchise)}
@@ -138,7 +133,6 @@ function Board() {
             setAnchorTarget={setAnchorTarget}
             key={franchise.franchise} /></div>
       )}
-      </div>
 
 
     </div>

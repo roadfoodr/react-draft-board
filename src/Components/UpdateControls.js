@@ -3,7 +3,7 @@ import '../Styles/UpdateControls.css';
 
 const UpdateControls = (props) => {
   return (
-    <div className="update-controls">
+    <div className="update-controls is-center">
 
       <small>Updates <strong>{props.tickPaused ? "Paused" : "Active"}</strong></small>
 
@@ -22,10 +22,3 @@ const UpdateControls = (props) => {
 }
 
 export default UpdateControls;
-
-
-
-
-
-  // const [tick, setTick] = useState(0);
-  // const [tickPaused, setTickPaused] = useState(true);
