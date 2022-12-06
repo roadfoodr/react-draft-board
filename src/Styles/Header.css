@@ -1,0 +1,49 @@
+.trophy-icon {
+    height: 64px;
+    margin-bottom: -12px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.summary-info {
+    font-size: 90%;
+    display: inline-flex !important; 
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 15px;
+    }
+
+@media screen and (min-width: 48em) {
+    .summary-info {
+        padding-top: 16px;
+        padding-bottom: 0px;
+        }
+}
+
+#main-header {
+order: 1;
+}
+
+#total-players {
+order: 2;
+}
+
+#total-spent {
+order: 3;
+}
+
+@media screen and (min-width: 48em) {
+  #main-header {
+    order: 2;
+  }
+
+  #total-players {
+    order: 1;
+  }
+
+  #total-spent {
+    order: 3;
+  }
+}

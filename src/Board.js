@@ -111,8 +111,8 @@ function Board() {
   // TODO: need useMemo to prevent Board re-render when only tick changes 
   return (
     <div className="content-wrapper">
-    
-      <Header players={players}/>
+
+      <Header players={players} num_franchises={franchises.length}/>
 
       <UpdateControls 
           tick={tick} tickPaused={tickPaused}
