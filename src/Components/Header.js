@@ -26,7 +26,7 @@ const Header = (props) => {
        </div>
       <div class="pure-u-1 pure-u-md-1-3" id="main-header">
         <h1 class="is-center">
-          Draft<img src={trophy} class="trophy-icon" />Board
+          Draft<img src={trophy} class="trophy-icon" alt="The Berman Trophy" />Board
         </h1>
       </div>
       <div class="pure-u-1 pure-u-md-1-3 summary-info" id="total-spent"> total spent:

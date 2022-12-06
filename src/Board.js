@@ -118,10 +118,9 @@ function Board() {
           tick={tick} tickPaused={tickPaused}
           setTick={setTick} setTickPaused={setTickPaused} />
 
-      { /* { console.log(franchises) } */}
-      { /* { console.log(sortAscend) } */}
-      {franchises.sort(franchise_sort_func).map((franchise, i) =>
-        <div className="pure-g is-center"><Team 
+      <div className="pure-g is-center">
+        {franchises.sort(franchise_sort_func).map((franchise, i) =>
+          <Team 
             franchise={franchise}
             franchise_index={i}
             players={players.filter(player => player.franchise === franchise.franchise)}
@@ -131,10 +130,9 @@ function Board() {
             setSortField={setSortField} setColorField={setColorField} 
             setSortAscend={setSortAscend} setExpanded={setExpanded}
             setAnchorTarget={setAnchorTarget}
-            key={franchise.franchise} /></div>
-      )}
-
-
+            key={franchise.franchise} />
+        )}
+      </div>
     </div>
   );
 }

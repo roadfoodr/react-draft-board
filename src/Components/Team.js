@@ -30,8 +30,7 @@ const Team = (props) => {
     // console.log("entering Team");
     // console.log(props);
     return (
-        <div className="pure-u-12-12 pure-u-sm-3-4 pure-u-lg-1-2 pure-u-lg-1-3"
-             id={props.franchise.franchise.replace(/\W/g, '')}>
+        <div id={props.franchise.franchise.replace(/\W/g, '')}>
         <table className="team-container pure-table pure-table-bordered" 
                id={props.franchise_index===0 ? "first-table" : null}
                style={{marginBottom:(props.expanded ? 12 : 5), maxWidth:405}}>
