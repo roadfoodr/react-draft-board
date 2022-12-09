@@ -12,7 +12,8 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
     <Route path="/" element={<Board/>}></Route>
-    <Route path="/add/:franchise/:nameLast/:nameFirst/:position/:team/:salary/:rating" element={<Add/>}></Route>
+    <Route path="/api/add/:password/:franchise/:nameLast/:nameFirst/:position/:team/:salary/:rating" 
+           element={<Add/>}></Route>
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

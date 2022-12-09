@@ -15,7 +15,7 @@
 }
 
 .pure-table td, .pure-table th {
-    padding: 0.25em 0.5em;
+    padding: 0.4em 0.75em !important;
 }
 
 #first-table .overscore {

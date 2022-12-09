@@ -4,14 +4,31 @@ import { useParams } from 'react-router-dom';
 import {db} from "./firebase";
 import {doc, setDoc} from "firebase/firestore";
 
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 const Add = (props) => {
     const urlParams = useParams();
 
     useEffect(() => {
         if (urlParams) {
+            // console.log(urlParams);
+            const auth = getAuth();
+            // The password only comes from the API client and is passed through to Firestore to be checked
+            signInWithEmailAndPassword(auth, process.env.REACT_APP_authEmail, urlParams.password)
+              .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                // console.log(user);
+              })
+              .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+              });
+
             const thisYear = new Date().getFullYear();
             const docID = urlParams.nameLast + urlParams.nameFirst + urlParams.position + urlParams.team + thisYear;
-            console.log(docID);
+            // console.log(docID);
             setDoc(doc(db, "players", docID), {
                 franchise: urlParams.franchise,
                 nameLast: urlParams.nameLast,

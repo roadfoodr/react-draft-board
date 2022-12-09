@@ -11,7 +11,6 @@ const Player = (props) => {
             style={{ width:50 }}>{props.player.position}</td>
         <td style={{ width:50 }}>{props.player.team}</td>
         <td style={{ width:50 }}>${props.player.salary}</td>
-        { /* <td style={{ width:50 }}>{props.player.rating}</td> */ }
         </tr>
     )
 }
