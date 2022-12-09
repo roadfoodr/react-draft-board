@@ -1,9 +1,10 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFirestore } from "firebase/firestore";
+
+// Import the functions you need from the SDKs you need
+const { initializeApp } = require("firebase/app");
+const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,6 +19,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+if (process.env.REACT_APP_DEBUG) {
+    /* eslint-disable-next-line no-restricted-globals */
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+}
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider(process.env.REACT_APP_reCAPTCHA_siteKey),
+  isTokenAutoRefreshEnabled: true
+});
 
 const db = getFirestore(app);
 export {db};
