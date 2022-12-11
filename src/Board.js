@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import {db} from "./firebase"
 import {collection, getDocs, orderBy} from "firebase/firestore"
 
@@ -12,6 +13,7 @@ const maybenum = (n) => { return isNaN(Number(n)) ? n : Number(n); }
 
 
 function Board() {
+  const urlParams = useParams();
 
   const [tick, setTick] = useState(0);
   const [tickIntervalID, setTickIntervalID] = useState(null);
@@ -53,7 +55,7 @@ function Board() {
     // read all players from db
     let players_temp = [];
     let franchise_set = new Set();
-    const thisYear = new Date().getFullYear();
+    const thisYear = urlParams.hasOwnProperty('year') ? urlParams.year : new Date().getFullYear();
     const collRef = `years/${thisYear}/players`;
     getDocs(collection(db, collRef), 
       orderBy("nameLast"), orderBy("nameFirst"), orderBy("position"), orderBy("team"), 
