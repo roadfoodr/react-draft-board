@@ -14,7 +14,7 @@ const Add = (props) => {
             // console.log(urlParams);
             const auth = getAuth();
             // The password only comes from the API client and is passed through to Firestore to be checked
-            signInWithEmailAndPassword(auth, process.env.REACT_APP_authEmail, urlParams.password)
+            signInWithEmailAndPassword(auth, process.env.REACT_APP_authEmail, urlParams.apiKey)
               .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
@@ -26,10 +26,11 @@ const Add = (props) => {
                 console.log(errorCode, errorMessage);
               });
 
-            const thisYear = new Date().getFullYear();
+            const thisYear = urlParams.year;
+            const collRef = `years/${thisYear}/players`;
             const docID = urlParams.nameLast + urlParams.nameFirst + urlParams.position + urlParams.team + thisYear;
-            // console.log(docID);
-            setDoc(doc(db, "players", docID), {
+            // console.log(collRef);
+            setDoc(doc(db, collRef, docID), {
                 franchise: urlParams.franchise,
                 nameLast: urlParams.nameLast,
                 nameFirst: urlParams.nameFirst,
@@ -51,6 +52,7 @@ const Add = (props) => {
             <h1>Adding Player</h1>
             <p>the parameters are:
             <ul>
+            <li>{urlParams.year}</li>
             <li>{urlParams.franchise}</li>
             <li>{urlParams.nameLast}</li>
             <li>{urlParams.nameFirst}</li>

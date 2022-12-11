@@ -53,7 +53,9 @@ function Board() {
     // read all players from db
     let players_temp = [];
     let franchise_set = new Set();
-    getDocs(collection(db, "players"), 
+    const thisYear = new Date().getFullYear();
+    const collRef = `years/${thisYear}/players`;
+    getDocs(collection(db, collRef), 
       orderBy("nameLast"), orderBy("nameFirst"), orderBy("position"), orderBy("team"), 
       ).then((snapshot) => {
     snapshot.forEach((doc) => {
