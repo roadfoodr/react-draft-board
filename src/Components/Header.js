@@ -28,6 +28,7 @@ const Header = (props) => {
         <h1 class="is-center">
           Draft<img src={trophy} class="trophy-icon" alt="The Berman Trophy" />Board
         </h1>
+        <p class="header-year is-center">{props.year}</p>
       </div>
       <div class="pure-u-1 pure-u-md-1-3 summary-info" id="total-spent"> total spent:
         <span><strong>${player_spent}

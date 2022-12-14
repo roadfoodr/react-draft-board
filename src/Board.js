@@ -23,6 +23,8 @@ function Board() {
   const [expanded, setExpanded] = useState(true);
   const [anchorTarget, setAnchorTarget] = useState(null);
 
+  const thisYear = urlParams.hasOwnProperty('year') ? urlParams.year : new Date().getFullYear();
+
   const franchise_sort_func = (f1, f2) => {
     return (maybenum(f1[sortField]) === maybenum(f2[sortField]) ?
             (f1.franchise <= f2.franchise ? -1: 1) :
@@ -31,12 +33,9 @@ function Board() {
 
   // Only establish the snapshot listener at first render
   useEffect(() => {
-
-    const thisYear = urlParams.hasOwnProperty('year') ? urlParams.year : new Date().getFullYear();
     const collRef = collection(db, `years/${thisYear}/players`);
-
     const unsub_listener = onSnapshot(collRef, (snapshot) => {
-      console.log("Current snapshot: ", snapshot);
+      // console.log("Current snapshot: ", snapshot);
       let players_temp = [];
       let franchise_set = new Set();
 
@@ -88,7 +87,7 @@ function Board() {
   return (
     <div className="content-wrapper">
 
-      <Header players={players} num_franchises={franchises.length}/>
+      <Header year={thisYear} players={players} num_franchises={franchises.length}/>
 
       <div className="pure-g is-center">
         {franchises.sort(franchise_sort_func).map((franchise, i) =>

@@ -14,12 +14,23 @@
     vertical-align: middle;
     padding-bottom: 15px;
     }
-
 @media screen and (min-width: 48em) {
     .summary-info {
         padding-top: 16px;
         padding-bottom: 0px;
         }
+}
+
+.header-year {
+    font-size: 125%;
+    font-style: italic;
+    font-weight: bold;
+}
+.header-year:before {
+  content: '\2014\00a0';
+}
+.header-year:after {
+  content: '\00a0\2014';
 }
 
 #main-header {

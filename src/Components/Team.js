@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Player from './Player.js';
