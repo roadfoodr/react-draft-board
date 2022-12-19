@@ -22,7 +22,8 @@ const Team = (props) => {
 
     const getBgColor = () => {
         const rangemin = (props.colorField === 'remain' ? 0 : global.config.rating_cscale_cap_min);
-        const rangemax = (props.colorField === 'remain' ? global.config.salary_cap : global.config.rating_cscale_cap_max);
+        const rangemax = (props.colorField === 'remain' ? global.config.salary_cap : 
+                                                          global.config.rating_cscale_cap_max);
         let palette = require('color-interpolate')(props.colorField === 'remain' ? colors_remain : colors_ranks);
         let color_index = invlerp(rangemin, rangemax, Number(props.franchise[props.colorField]));
         return palette(color_index);
