@@ -71,7 +71,6 @@ function Board() {
     const unsub_listener = onSnapshot(collRef, (snapshot) => {
       // console.log("Current snapshot: ", snapshot);
       let players_temp = [];
-      let franchise_set = new Set();
 
       snapshot.forEach((doc) => {
         let player_temp = doc.data();

@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Player from './Player.js';
-import { clamp, invlerp, isDark, colormap, colors_ranks, colors_remain } from '../Utils/colorfuncs.js'
+import { invlerp, isDark, colors_ranks, colors_remain } from '../Utils/colorfuncs.js'
 import '../Styles/Team.css';
 
 
@@ -28,8 +28,7 @@ const Team = (props) => {
         let color_index = invlerp(rangemin, rangemax, Number(props.franchise[props.colorField]));
         return palette(color_index);
     }
-    // console.log("entering Team");
-    // console.log(props);
+
     return (
         <div id={props.franchise.franchise.replace(/\W/g, '')}>
         <table className="team-container pure-table pure-table-bordered" 
@@ -42,8 +41,9 @@ const Team = (props) => {
                               props.setExpanded(!props.expanded);
                               props.setAnchorTarget(props.franchise.franchise.replace(/\W/g, ''));
                     }}}>
-            <h2 className={ (props.sortField === "franchise") && 
-                            (props.sortAscend === 1 ? "underscore" : "overscore") }
+            <h2 className={ (props.sortField === "franchise") ? 
+                            (props.sortAscend === 1 ? "underscore" : "overscore") :
+                            undefined }
                 onClick={()=>{props.setSortAscend(
                                 props.sortField === "franchise" ? props.sortAscend * -1 : 1);
                               props.setSortField("franchise"); }}>
@@ -52,8 +52,10 @@ const Team = (props) => {
                 onClick={()=>{props.setSortAscend(
                               props.sortField === "player_count" ? props.sortAscend * -1 : -1);
                               props.setSortField("player_count"); }}>
-                <small className={ (props.sortField === "player_count") && 
-                            (props.sortAscend === 1 ? "underscore" : "overscore") }>plyrs</small>
+                <small className={ (props.sortField === "player_count") ? 
+                                   (props.sortAscend === 1 ? "underscore" : "overscore") :
+                                   undefined
+                                 }>plyrs</small>
                 <small>:</small>
                 <strong>{props.franchise.player_count_off}</strong>|
                 <strong>{props.franchise.player_count_dst}</strong></span>
@@ -62,8 +64,9 @@ const Team = (props) => {
                                 props.setSortField("spent"); 
                                 props.setColorField("remain"); }}>
                 <span style={{ paddingTop:4, paddingRight:0, paddingBottom:4, paddingLeft:4 }}>
-                    <small className={ (props.sortField === "spent") && 
-                            (props.sortAscend === 1 ? "underscore" : "overscore") }>spnt</small>
+                    <small className={ (props.sortField === "spent") ? 
+                                       (props.sortAscend === 1 ? "underscore" : "overscore") :
+                                       undefined }>spnt</small>
                     <small>:</small>
                     <strong>${props.franchise.spent}</strong></span>
                 <span style={{ padding:1 }}>|</span>
@@ -75,8 +78,9 @@ const Team = (props) => {
                 onClick={()=>{props.setSortAscend(
                                 props.sortField === "maxbid" ? props.sortAscend * -1 : -1);
                               props.setSortField("maxbid"); }}>
-                <small className={ (props.sortField === "maxbid") && 
-                            (props.sortAscend === 1 ? "underscore" : "overscore") }>max</small>
+                <small className={ (props.sortField === "maxbid") ? 
+                                   (props.sortAscend === 1 ? "underscore" : "overscore") :
+                                   undefined }>max</small>
                 <small>:</small>
                 <strong>${props.franchise.maxbid}</strong></span>
             <span style={{ padding:4 }} 
@@ -84,17 +88,16 @@ const Team = (props) => {
                                 props.sortField === "total_rating" ? props.sortAscend * -1 : -1);
                               props.setSortField("total_rating"); 
                               props.setColorField("total_rating"); }}>
-                <small className={ (props.sortField === "total_rating") && 
-                            (props.sortAscend === 1 ? "underscore" : "overscore") }>rnkg</small>
+                <small className={ (props.sortField === "total_rating") ? 
+                                   (props.sortAscend === 1 ? "underscore" : "overscore") :
+                                   undefined }>rnkg</small>
                 <small>:</small>
                 <strong>{props.franchise.total_rating}</strong></span>
         </caption>
         <tbody>
 
         { /* Show Player rows if in "expanded" mode  */ }
-        {props.expanded && <TransitionGroup className="team">
-            { /* // TODO: within position, sort by timestamp instead of salary? */ }
-            
+        {props.expanded && <TransitionGroup className="team" component={null}>
                 {props.players.sort(player_sort_func).map(player =>
                     <CSSTransition
                         key={player.name+player.position+player.team}
